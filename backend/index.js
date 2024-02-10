@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const app = express()
 
-const { MongoClient } = require('mongodb')
+const { MongoClient, ObjectId } = require('mongodb')
 
 const url = 'mongodb://localhost:27017/recipe'
 
@@ -64,6 +64,32 @@ app.post('/api/signin/', async(req, res) => {
         console.error('Error during login:', error);
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
+})
+
+
+app.post('/api/comment/', async (req, res) => {
+    const date = new Date().toLocaleDateString();
+    const { commentText, userId } = req.body
+    
+    
+    try {
+        await client.connect();
+        console.log('Connected to MongoDB');
+        const dbName = client.db('recipe')
+        const collection = dbName.collection('comments') 
+        const insertedComment = await collection.insertOne({
+            userId: userId,
+            commentText: commentText,
+            commentDate: date
+
+        })
+        console.log(insertedComment)
+        res.json({success: true, message: ' Successfull'})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+
 })
 
 
