@@ -83,13 +83,31 @@ app.post('/api/comment/', async (req, res) => {
             commentDate: date
 
         })
-        console.log(insertedComment)
+        
         res.json({success: true, message: ' Successfull'})
     } catch (error) {
         console.log(error)
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 
+})
+
+app.get('/api/comments/:userId', async (req, res) => {
+    const userId = req.params.userId
+
+    try {
+        await client.connect();
+        console.log('Connected to MongoDB');
+        const dbName = client.db('recipe')
+        const collection = dbName.collection('comments') 
+
+        const condition = { userId: { $eq: userId } }
+        const results = await collection.find(condition).toArray();
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
 })
 
 
