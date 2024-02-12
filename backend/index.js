@@ -1,10 +1,10 @@
 const express = require('express')
 const bodyParser = require("body-parser")
-//const db = require('./db')
+
 const cors = require("cors")
 const app = express()
 
-const { MongoClient, ObjectId } = require('mongodb')
+const { MongoClient} = require('mongodb')
 
 const url = 'mongodb://localhost:27017/recipe'
 
@@ -22,6 +22,7 @@ app.use(cors())
 
 
 
+// Signin Up a user
 app.post('/api/signup/', async (req, res) => {
 
     const { name, email, password } =  req.body
@@ -36,7 +37,7 @@ app.post('/api/signup/', async (req, res) => {
         const dbName = client.db('recipe')
         const collection = dbName.collection('users') 
         const result = await collection.insertOne(user);
-        res.json({success: true, message: 'Resgistration Successfull', user: result.insertedId})
+        res.json({success: true, message: 'Resgistration Successfull', user: result.name})
         console.log(`Inserted document with id: ${result.insertedId}`);
     } catch (error) {
         console.log('Error of registration ', error)
@@ -45,6 +46,7 @@ app.post('/api/signup/', async (req, res) => {
 })
 
 
+// Sign in a user
 app.post('/api/signin/', async(req, res) => {
     const { email, password } = req.body
 
@@ -59,7 +61,7 @@ app.post('/api/signin/', async(req, res) => {
         const dbName = client.db('recipe')
         const collection = dbName.collection('users') 
         const user = await collection.findOne(userInfo)
-        res.json({success: true, message: 'Login Successfull', user: user._id})
+        res.json({success: true, message: 'Login Successfull', user: user})
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ success: false, message: 'Internal Server Error' });
@@ -67,31 +69,8 @@ app.post('/api/signin/', async(req, res) => {
 })
 
 
-app.post('/api/comment/', async (req, res) => {
-    const date = new Date().toLocaleDateString();
-    const { commentText, userId } = req.body
-    
-    
-    try {
-        await client.connect();
-        console.log('Connected to MongoDB');
-        const dbName = client.db('recipe')
-        const collection = dbName.collection('comments') 
-        const insertedComment = await collection.insertOne({
-            userId: userId,
-            commentText: commentText,
-            commentDate: date
 
-        })
-        
-        res.json({success: true, message: ' Successfull'})
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({ success: false, message: 'Internal Server Error' });
-    }
-
-})
-
+//get the list comment of a same user
 app.get('/api/comments/:userId', async (req, res) => {
     const userId = req.params.userId
 
@@ -111,6 +90,114 @@ app.get('/api/comments/:userId', async (req, res) => {
 })
 
 
+
+// adding new recipe
+app.post('/api/recipe/:userId', async (req, res) => {
+    const userId = req.params.userId
+    const { 
+        title, 
+        description,
+        ingredients_1,
+        ingredients_2,
+        ingredients_3,
+        ingredients_4,
+        ingredients_5, 
+        ingredients_6,
+        steps_1,
+        steps_2,
+        steps_3,
+        steps_4,
+        steps_5,
+        steps_6,
+    } = req.body
+
+    const recipeData = {
+        title: title,
+        description: description,
+        ingredients: {
+            ingredients_1:ingredients_1,
+            ingredients_2:ingredients_2,
+            ingredients_3:ingredients_3,
+            ingredients_4:ingredients_4,
+            ingredients_5:ingredients_5,
+            ingredients_6:ingredients_6,
+        },
+        steps:{
+            steps_1:steps_1,
+            steps_2:steps_2,
+            steps_3:steps_3,
+            steps_4:steps_4,
+            steps_5:steps_5,
+            steps_6:steps_6
+        },
+        userId:userId
+
+    }
+
+    try {
+        await client.connect();
+        console.log('Connected to MongoBD');
+        const dbName = client.db('recipe');
+        const collection = dbName.collection('recipe')
+        const result = await collection.insertOne(recipeData);
+        res.json(result)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+
+
+})
+
+
+//post a comment on a recipe
+app.post('/api/comment/', async (req, res) => {
+    const date = new Date().toLocaleDateString();
+    const { commentText, userId, recipeId } = req.body
+    
+    
+    try {
+        await client.connect();
+        console.log('Connected to MongoDB');
+        const dbName = client.db('recipe')
+        const collection = dbName.collection('comments') 
+        const insertedComment = await collection.insertOne({
+            userId: userId,
+            recipeId: recipeId,
+            commentText: commentText,
+            commentDate: date
+
+        })
+        
+        res.json( insertedComment)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+
+})
+
+
+//get the list comment of a recipe
+app.get('/api/recipe/comments/:recipeId', async (req, res) => {
+    const recipeId = req.params.recipeId
+    
+
+    try {
+        await client.connect();
+        console.log('Connected to MongoDB');
+        const dbName = client.db('recipe')
+        console.log(recipeId)
+        const collection = dbName.collection('comments') 
+        
+        const conditions = { recipeId: { $eq: recipeId } }
+        const result = await collection.find(conditions).toArray();
+        res.json(result)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+})
 
 
 
@@ -141,5 +228,3 @@ app.listen(port, () => {
     console.log("Listening on port " + port)
 })
 
-//insertion()
-//getData()
