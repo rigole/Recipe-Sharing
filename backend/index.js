@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require("body-parser")
-//const db = require('./db')
+
 const cors = require("cors")
 const app = express()
 
@@ -91,7 +91,7 @@ app.get('/api/comments/:userId', async (req, res) => {
 
 
 
-
+// adding new recipe
 app.post('/api/recipe/:userId', async (req, res) => {
     const userId = req.params.userId
     const { 
@@ -222,12 +222,9 @@ app.get('/api/recipe/comments/:recipeId', async (req, res) => {
 
 
 
-
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log("Listening on port " + port)
 })
 
-//insertion()
-//getData()
