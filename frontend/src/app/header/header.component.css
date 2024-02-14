@@ -1,0 +1,61 @@
+.navbar-brand{
+    height: 65px;
+    
+}
+
+
+/*-#navbarSupportedContent{
+    display: flex;
+    justify-content: center;
+}*/
+
+.nav-links{
+    margin-left: 14rem;
+}
+
+.form-inline{
+    display: flex;
+}
+
+.btn{
+    margin: 0.52rem;
+}
+
+.task-button{
+    width: 500px;
+    display: inline;
+}
+
+#signupmodaltitle{
+    color: black;
+}
+
+#signinmodaltitle{
+    color: black;
+}
+
+#addingTaskError{
+    color: black;
+}
+#welcomeMessage{
+    color: black;
+}
+
+textarea{
+    width: 400px;
+    height: 150px;
+    margin-left: 1rem;
+}
+
+#taskmodaltitle{
+    color: black;
+}
+
+@media screen and (max-width: 375px) {
+
+    .nav-links {
+        display: flex;
+        margin: 0;
+        justify-content: center;
+    }
+}
