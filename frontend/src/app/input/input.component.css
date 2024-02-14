@@ -1,0 +1,24 @@
+.input-user{
+    margin: 1rem;
+    width: 400px;
+    height: 45px;
+  
+}
+
+.input-user::placeholder{
+    font-family: 'Comfortaa';
+    padding-left: 1rem;
+}
+
+.mistake{
+    color: red;
+}
+
+
+@media screen and (max-width: 375px) {
+    .input-user{
+        margin: 2rem;
+        width: 250px;
+    }
+
+}
