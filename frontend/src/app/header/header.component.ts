@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'; 
+import { UserService} from '../user-service.service';
 
 @Component({
   selector: 'app-header',
@@ -7,11 +8,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit{
-  
+  inSubmission = false
   userInfo = false
+  userId = ''
+  modalValue: string = '';
   
-  constructor(){}
-  ngOnInit() {}
+  constructor(private userService:UserService){}
+  ngOnInit() {
+    this.userInfo = this.isAuthenticated()
+  }
 
   name = new FormControl('', [
     Validators.required,
@@ -96,14 +101,39 @@ export class HeaderComponent implements OnInit{
 
 
 
-
+  isAuthenticated(): boolean{
+    return !!localStorage.getItem('userInfo')
+  }
 
   changeIcon(){}
 
-  login(){}
+  login(){
+    this.inSubmission = true
+    this.userInfo = true
+    this.userService.userLogin(this.emailLogin.value, this.passwordLogin.value).subscribe(response => {
+      this.userId = response.user_token
+      localStorage.setItem("usertoken",this.userId)
+      this.modalValue = "modal";
+      console.log(response)
+    })
+  }
 
-  subscribe(){}
+  subscribe(){
+    //BlueWindow2024
+    this.inSubmission = true
+    this.userInfo = true
+    this.userService.userSubscribe(this.name.value, this.email.value, this.password.value).subscribe(response => {
+      this.userId = response.user_token
+      localStorage.setItem("usertoken", this.userId)
+      this.modalValue = "modal";
+      console.log(response)
+    });
+  }
 
-  signOut(){}
+  signOut(){
+    this.userInfo = false
+    localStorage.removeItem('userInfo')
+    localStorage.removeItem('usertoken')
+  }
 
 }

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UserServiceService {
+export class UserService {
   private backendUrl = 'http://localhost:3000/api';
   constructor(private http: HttpClient) {}
 
@@ -14,5 +14,12 @@ export class UserServiceService {
     const user = { email: email}
     localStorage.setItem('userInfo', JSON.stringify(user))
     return this.http.post(`${this.backendUrl}/signin`, {email, password})
+  }
+
+  userSubscribe(name:any, email:any, password:any):Observable<any>{
+    const user = { username:name, email: email }
+    localStorage.setItem('userInfo', JSON.stringify(user))
+    return this.http.post(`${this.backendUrl}/signup/`, {name, email, password})
+
   }
 }
