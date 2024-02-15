@@ -9,20 +9,22 @@
           <div class="form-inline">
             <ul class="">
               <li class="task-button">
-                <div *ngIf="!userInfo;" class="">
-                  <button class="btn btn-outline-none" >Available Recipes</button>
-                  <button class="btn btn-outline-none" >Menu</button>
-                  <button class="btn btn-outline-success" title="Sign up or Signin to add a recipe" disabled data-toggle="modal" data-target="#taskmodal" >Add a Recipe</button>
-                  <button class="btn btn-outline-none ">News</button>
-                  <button class="btn btn-outline-none">Meals of Reagion</button>
+                <div>
+                  <button class="btn btn-outline-none" [routerLink]="['/recipes']">Available Recipes</button>
+                  <button class="btn btn-outline-none" [routerLink]="['/menu']">Menu</button>
+                  <button class="btn btn-outline-success" [routerLink]="['/add-recipes']" title="Sign up or Signin to add a recipe" disabled data-toggle="modal" data-target="#taskmodal" >Add a Recipe</button>
+                  <button class="btn btn-outline-none " [routerLink]="['/news']">News</button>
+                  <button class="btn btn-outline-none" [routerLink]="['/meals']">Meals of Reagion</button>
                 </div>
               </li>
             </ul>
           </div>
     
-    
+         
+
+
           <ng-template #welcomeTemplate>
-            <p id="welcomeMessage">Welcome! You are now connected. </p>
+            <p id="welcomeMessage">Welcome !. </p>
             <li><button class="btn btn-outline-danger" (click)="signOut()">Sign Out</button></li>
           </ng-template>
 
@@ -56,7 +58,7 @@
             <app-input [control]="email" type="email" placeholder="enter Your email"></app-input>
             <app-input [control]="password" type="password" placeholder="enter Your password"></app-input>
           </div>
-          <p class="text-center" id="signupResponse"></p>
+          <p class="text-center" [attr.data-dismiss]="modalValue"  id="signupResponse"></p>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
             <button  type="submit" class="btn btn-outline-success">Sign Up</button>

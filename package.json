@@ -1,0 +1,26 @@
+{
+  "name": "recipe-sharing",
+  "version": "1.0.0",
+  "description": "This project is platform allowing users many things such as:\r <li>to share their favorites recipes\r <li>filtering according to many criteria\r <li> and leave comments and so on.<br/>\r It will use a NoSQL Database(mongoDB), NodeJS and also Angular for the frontend part",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npm start --prefix backend",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rigole/Recipe-Sharing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rigole/Recipe-Sharing/issues"
+  },
+  "homepage": "https://github.com/rigole/Recipe-Sharing#readme",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

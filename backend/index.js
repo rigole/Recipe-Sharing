@@ -37,8 +37,8 @@ app.post('/api/signup/', async (req, res) => {
         const dbName = client.db('recipe')
         const collection = dbName.collection('users') 
         const result = await collection.insertOne(user);
-        res.json({success: true, message: 'Resgistration Successfull', user: result.name})
-        console.log(`Inserted document with id: ${result.insertedId}`);
+        res.json({success: true, message: 'Registration Successfull', user_token:  result.insertedId, user: result.name})
+       
     } catch (error) {
         console.log('Error of registration ', error)
         res.status(500).json({ success: false, message: 'Internal error server'})
@@ -61,7 +61,7 @@ app.post('/api/signin/', async(req, res) => {
         const dbName = client.db('recipe')
         const collection = dbName.collection('users') 
         const user = await collection.findOne(userInfo)
-        res.json({success: true, message: 'Login Successfull', user: user})
+        res.json({success: true, message: 'Login Successfull',user_token:user._id, user_name: user.name})
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ success: false, message: 'Internal Server Error' });
