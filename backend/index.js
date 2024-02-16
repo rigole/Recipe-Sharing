@@ -201,6 +201,21 @@ app.get('/api/recipe/comments/:recipeId', async (req, res) => {
 
 
 
+app.get('/api/recipe', async(req, res) => {
+
+    try {
+        await client.connect();
+        console.log('Connected to MongoDB');
+        const dbName = client.db('recipe')
+        const collection = dbName.collection('recipe')
+        const results = await collection.find().toArray();
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+})
+
 
 
 
