@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http'; 
 import { HeaderComponent } from './header/header.component';
 import { InputComponent } from './input/input.component';
+import { RecipesComponent } from './recipes/recipes.component';
+import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    InputComponent
+    InputComponent,
+    RecipesComponent,
+    RecipeDetailsComponent
   ],
   imports: [
     BrowserModule,
