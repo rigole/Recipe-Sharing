@@ -13,9 +13,14 @@ export class HeaderComponent implements OnInit{
   userId = ''
   modalValue: string = '';
   
+  username: any = ''
+  
   constructor(private userService:UserService){}
   ngOnInit() {
+
     this.userInfo = this.isAuthenticated()
+    this.username = localStorage.getItem("username")
+
   }
 
   name = new FormControl('', [
@@ -115,6 +120,8 @@ export class HeaderComponent implements OnInit{
       localStorage.setItem("usertoken",this.userId)
       this.modalValue = "modal";
       console.log(response)
+      this.username = response.user_name
+      localStorage.setItem("username", this.username)
     })
   }
 
@@ -126,7 +133,8 @@ export class HeaderComponent implements OnInit{
       this.userId = response.user_token
       localStorage.setItem("usertoken", this.userId)
       this.modalValue = "modal";
-      console.log(response)
+      this.username = response.user
+      localStorage.setItem("username", this.username)
     });
   }
 

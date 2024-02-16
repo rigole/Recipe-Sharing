@@ -37,7 +37,7 @@ app.post('/api/signup/', async (req, res) => {
         const dbName = client.db('recipe')
         const collection = dbName.collection('users') 
         const result = await collection.insertOne(user);
-        res.json({success: true, message: 'Registration Successfull', user_token:  result.insertedId, user: result.name})
+        res.json({success: true, message: 'Registration Successfull', user_token:  result.insertedId, user: user.name})
        
     } catch (error) {
         console.log('Error of registration ', error)

@@ -1,18 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     
       <img class="navbar-brand" src="../../assets/images/blue.png"/>
+      
+      
       <button class="navbar-toggler" type="button" data-toggle="collapse"  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span (click)="changeIcon"  class="navbar-toggler-icon"></span>
       </button>
       
+
         <div class="collapse navbar-collapse justify-content-end " id="navbarSupportedContent">
           <div class="form-inline">
+          
             <ul class="">
               <li class="task-button">
+              
                 <div>
+                
                   <button class="btn btn-outline-none" [routerLink]="['/recipes']">Available Recipes</button>
                   <button class="btn btn-outline-none" [routerLink]="['/menu']">Menu</button>
-                  <button class="btn btn-outline-success" [routerLink]="['/add-recipes']" title="Sign up or Signin to add a recipe" disabled data-toggle="modal" data-target="#taskmodal" >Add a Recipe</button>
+                  <button class="btn btn-outline-success" [routerLink]="['/add-recipes']" >Add a Recipe</button>
                   <button class="btn btn-outline-none " [routerLink]="['/news']">News</button>
                   <button class="btn btn-outline-none" [routerLink]="['/meals']">Meals of Reagion</button>
                 </div>
@@ -22,11 +28,11 @@
     
          
 
-
           <ng-template #welcomeTemplate>
-            <p id="welcomeMessage">Welcome !. </p>
+            <p id="welcomeMessage">Welcome {{ username }}  </p>
             <li><button class="btn btn-outline-danger" (click)="signOut()">Sign Out</button></li>
           </ng-template>
+         
 
 
           <ul *ngIf="!userInfo; else welcomeTemplate" class="nav-links">
@@ -34,12 +40,9 @@
             <button class="btn btn-outline-success" data-toggle="modal" data-target="#signinmodal">Sign In</button>
           </ul>
          
+          
         
         </div>
-        
-        
-      
-    
 </nav>
 
 <div class="modal fade" id="signupmodal" tabindex="-1" role="dialog" aria-labelledby="signupmodal" aria-hidden="true">
