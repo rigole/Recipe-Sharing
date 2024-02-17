@@ -7,12 +7,14 @@ import { RecipeService } from '../services/recipe-service.service';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit{
-  userInfo = false
+  userInfo: boolean = this.isAuthenticated()
+  
   recipeList : any [] = []
-  constructor(private recipeService:RecipeService){}
+    constructor(private recipeService:RecipeService){
+  }
   
   ngOnInit(): void {
-    this.userInfo = this.isAuthenticated()
+    this.userInfo 
     this.getAllRecipes()
   }
 
@@ -21,6 +23,8 @@ export class RecipesComponent implements OnInit{
       this.recipeList = response
       console.log(this.recipeList)
     })
+
+    
   }
 
 

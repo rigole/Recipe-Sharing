@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const app = express()
 
-const { MongoClient} = require('mongodb')
+const { MongoClient, BSON} = require('mongodb')
 
 const url = 'mongodb://localhost:27017/recipe'
 
@@ -158,7 +158,7 @@ app.post('/api/comment/', async (req, res) => {
     
     try {
         await client.connect();
-        console.log('Connected to MongoDB');
+        
         const dbName = client.db('recipe')
         const collection = dbName.collection('comments') 
         const insertedComment = await collection.insertOne({
@@ -190,8 +190,8 @@ app.get('/api/recipe/comments/:recipeId', async (req, res) => {
         console.log(recipeId)
         const collection = dbName.collection('comments') 
         
-        const conditions = { recipeId: { $eq: recipeId } }
-        const result = await collection.find(conditions).toArray();
+        const condition = { recipeId: { $eq: recipeId } }
+        const result = await collection.find(condition).toArray();
         res.json(result)
     } catch (error) {
         console.log(error)
@@ -200,12 +200,11 @@ app.get('/api/recipe/comments/:recipeId', async (req, res) => {
 })
 
 
-
+// Get all recipes
 app.get('/api/recipe', async(req, res) => {
 
     try {
         await client.connect();
-        console.log('Connected to MongoDB');
         const dbName = client.db('recipe')
         const collection = dbName.collection('recipe')
         const results = await collection.find().toArray();
@@ -217,6 +216,25 @@ app.get('/api/recipe', async(req, res) => {
 })
 
 
+app.get('/api/recipe/:recipeId', async (req, res) => {
+    const recipeId = req.params.recipeId
+    try {
+        await client.connect();
+        console.log(recipeId)
+        const dbName = client.db('recipe')
+        const collection = dbName.collection('recipe')
+        
+
+        //const conditions = { _id: { $eq: recipeId } }
+        const result = await collection.findOne({"_id": new BSON.ObjectId(recipeId)})
+        console.log(result)
+        res.json(result)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+    
+})
 
 
 

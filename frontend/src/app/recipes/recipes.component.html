@@ -2,13 +2,13 @@
 <div class="recipe_card_group">
     <div class="recipe_card" *ngFor="let recipe of recipeList">
         <div class="imgbox">
-            <img class="recipe_image" src="../../assets/images/itachi.jpg" alt="">
+            <img class="recipe_image" src="{{ recipe.image }}" alt="">
         </div>
         <div class="recipe_content">
             <h3 class="recipe_title">{{ recipe.title }}</h3>
             <p class="recipe_description">{{ recipe.description }}</p>
             <a [routerLink]="['/recipe/', recipe._id]" class="readmore_recipe">
-                <button class="btn btn-outline-info" >Read more</button>
+               <button class="btn btn-outline-info" [disabled]="!userInfo">Read more</button>
             </a>
         </div>
     </div>
