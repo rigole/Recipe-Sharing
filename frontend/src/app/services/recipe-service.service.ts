@@ -16,6 +16,10 @@ export class RecipeService {
   getAllRecipe():Observable<any>{
     return this.http.get(`${this.backendUrl}/recipe`)
   }
+
+  getRecipeDetail(recipeId:any):Observable<any>{
+    return this.http.get(`${this.backendUrl}/recipe/${recipeId}`)
+  }
 }
 
 

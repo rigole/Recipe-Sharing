@@ -223,11 +223,9 @@ app.get('/api/recipe/:recipeId', async (req, res) => {
         console.log(recipeId)
         const dbName = client.db('recipe')
         const collection = dbName.collection('recipe')
-        
-
-        //const conditions = { _id: { $eq: recipeId } }
+    
         const result = await collection.findOne({"_id": new BSON.ObjectId(recipeId)})
-        console.log(result)
+        
         res.json(result)
     } catch (error) {
         console.log(error)
