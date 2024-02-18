@@ -48,11 +48,13 @@
 
 .recipe_description{
     width: 80%;
-    margin: 10px auto;
+    margin: 0.2rem auto;
     font-size: 18px;
     transition: 0.5s;
     opacity: 0;
     color: black;
+    height: 280px;
+    overflow: hidden;
 }
 
 .readmore_recipe{
