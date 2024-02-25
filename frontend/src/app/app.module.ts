@@ -9,6 +9,8 @@ import { InputComponent } from './input/input.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { TabsContainerComponent } from './tabs-container/tabs-container.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { AddRecipeComponent } from './add-recipe/add-recipe.component';
     InputComponent,
     RecipesComponent,
     RecipeDetailsComponent,
-    AddRecipeComponent
+    AddRecipeComponent,
+    TabsComponent,
+    TabsContainerComponent
   ],
   imports: [
     BrowserModule,

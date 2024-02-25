@@ -1,0 +1,40 @@
+ul{
+    display: flex;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+li{
+    flex:  1 1 auto;
+    text-align: center;
+    list-style: none;
+}
+
+a {
+    display: block;
+    border-radius: 0.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+   text-decoration: none;
+}
+a:hover {
+    /*color: #ffff;*/
+   
+}
+
+.inactiveTab:hover {
+    background-color: rgb(129 140 248);
+}
+
+
+.activeTab {
+    color: #ffff;
+    background-color: rgb(129 140 248);
+}
+
+.activeTab:hover{
+    color: #ffff;
+   background-color: rgb(129 140 248);
+}
